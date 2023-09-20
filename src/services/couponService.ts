@@ -5,7 +5,7 @@ export class CouponService {
     return await Coupon.findOne({ where: { code: code } });
   }
 
-  async newCoupon(code: string, name: string,rulesIds : string[],discountIds:string[]) {
+  async newCoupon(code: string, name: string) {
     return await Coupon.create({ name, code });
   }
 

@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import sequelize from './sequelize';
 import dotenv from 'dotenv';
 import routes from './routes';
+// import db from '../models';
+
 dotenv.config();
 const app = express();
 
@@ -24,6 +26,6 @@ sequelize
     });
   })
   .catch((error) => {
-    console.error('Error syncing database:', error);1
+    console.error('Error syncing database:', error);
+    1;
   });
-

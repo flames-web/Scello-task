@@ -1,11 +1,16 @@
-import {Router} from "express";
-import { createCoupon , coupons} from "./controllers/coupon.controller";
+import { Router } from 'express';
+import {
+  createCoupon,
+  coupons,
+  deleteCoupon,
+} from './controllers/coupon.controller';
 
 const router = Router();
 
+router.post('/coupon', createCoupon);
 
-router.post('/coupon',createCoupon);
+router.get('/coupon', coupons);
 
-router.get('/coupon',coupons)
+router.delete('/coupon', deleteCoupon);
 
 export default router;

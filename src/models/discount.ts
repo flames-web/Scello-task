@@ -1,11 +1,12 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, ForeignKey } from 'sequelize';
 import sequelize from '../sequelize';
-import { Coupon } from '.';
+import { Coupon, Rule } from '.';
 
 export class Discount extends Model {
   declare id: number;
   declare type: string;
   declare value: number;
+  declare couponId: ForeignKey<Coupon['id']>;
 }
 
 Discount.init(
@@ -23,6 +24,14 @@ Discount.init(
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    couponId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Coupon,
+        key: 'id',
+      },
+      allowNull: true,
+    },
   },
   {
     sequelize,
@@ -30,6 +39,3 @@ Discount.init(
     tableName: 'discount',
   },
 );
-
-Discount.belongsToMany(Coupon, { through: 'CouponDiscount' });
-Coupon.belongsToMany(Discount,{through:'CouponDiscount'})

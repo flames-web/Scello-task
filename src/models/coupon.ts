@@ -1,4 +1,4 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, HasManyCreateAssociationMixin } from 'sequelize';
 import sequelize from '../sequelize';
 import { Rule } from './rule';
 import { Discount } from './discount';
@@ -7,8 +7,8 @@ export class Coupon extends Model {
   declare id: number;
   declare name: string;
   declare code: string;
-  // declare rulesIds: string[];
-  // declare discountIds:string[]
+  declare createRule: HasManyCreateAssociationMixin<Rule, 'couponId'>;
+  declare createDiscount: HasManyCreateAssociationMixin<Discount, 'couponId'>;
 }
 
 Coupon.init(
@@ -27,22 +27,20 @@ Coupon.init(
       allowNull: false,
       unique: true,
     },
-    // rulesIds: {
-    //   type:DataTypes.STRING,
-      // references:'Rule'
-    // },
-    // discountIds: {
-    //   type:DataTypes.STRING,
-      // references:'Discount'
-  //   }
-
-  // 
-},
+  },
   {
     sequelize,
     modelName: 'coupon',
   },
 );
 
-// Coupon.belongsToMany(Rule, { through: 'CouponRules' });
-// Coupon.belongsToMany(Discount, { through: 'CouponDiscount' })
+Coupon.hasMany(Rule, {
+  sourceKey: 'id',
+  foreignKey: 'couponId',
+  as: 'rules',
+});
+Coupon.hasMany(Discount, {
+  sourceKey: 'id',
+  foreignKey: 'couponId',
+  as: 'discounts',
+});

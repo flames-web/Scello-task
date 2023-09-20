@@ -16,13 +16,12 @@ Cart.init(
       autoIncrement: true,
     },
     total: {
-      type:DataTypes.DECIMAL,
-      allowNull:false
+      type: DataTypes.DECIMAL,
+      allowNull: false,
     },
     items: {
-      type:DataTypes.STRING,
-    }
-
+      type: DataTypes.STRING,
+    },
   },
   {
     sequelize,
